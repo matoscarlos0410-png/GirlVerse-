@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GirlVerse</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#ffe5f1,#e7ddff,#dff7ff);
+  min-height:100vh;
+  color:#4b4050;
+}
+
+header{
+  background:rgba(255,255,255,.85);
+  padding:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 3px 15px #0001;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.logo{
+  font-size:28px;
+  font-weight:bold;
+  color:#d95b9b;
+}
+
+.coins{
+  background:#fff;
+  padding:10px 18px;
+  border-radius:25px;
+  font-weight:bold;
+}
+
+nav{
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  flex-wrap:wrap;
+  padding:15px;
+}
+
+nav button,
+.action{
+  border:none;
+  padding:11px 16px;
+  border-radius:20px;
+  background:white;
+  color:#9b4d7c;
+  cursor:pointer;
+  font-weight:bold;
+  box-shadow:0 3px 10px #0001;
+  transition:.2s;
+}
+
+nav button:hover,
+.action:hover{
+  transform:translateY(-2px);
+  background:#ffe2ef;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+}
+
+.screen{
+  display:none;
+}
+
+.screen.active{
+  display:block;
+}
+
+.hero{
+  text-align:center;
+  padding:25px;
+}
+
+.hero h1{
+  font-size:42px;
+  color:#c84d91;
+  margin-bottom:10px;
+}
+
+.hero p{
+  font-size:18px;
+}
+
+.card{
+  background:rgba(255,255,255,.88);
+  border-radius:25px;
+  padding:25px;
+  margin:15px 0;
+  box-shadow:0 8px 25px #0001;
+}
+
+.avatar{
+  width:150px;
+  height:190px;
+  margin:20px auto;
+  position:relative;
+}
+
+.body{
+  width:85px;
+  height:105px;
+  background:#f3a8c7;
+  border-radius:40px 40px 20px 20px;
+  position:absolute;
+  bottom:0;
+  left:33px;
+}
+
+.head{
+  width:100px;
+  height:100px;
+  background:#f5c9a9;
+  border-radius:50%;
+  position:absolute;
+  top:0;
+  left:25px;
+  z-index:2;
+}
+
+.hair{
+  width:108px;
+  height:90px;
+  background:#6b402e;
+  border-radius:55px 55px 30px 30px;
+  position:absolute;
+  top:-5px;
+  left:21px;
+  z-index:3;
+}
+
+.face{
+  position:absolute;
+  z-index:4;
+  top:42px;
+  left:48px;
+  font-size:20px;
+  letter-spacing:18px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:18px;
+}
+
+.item{
+  background:white;
+  border-radius:20px;
+  padding:20px;
+  text-align:center;
+  box-shadow:0 5px 15px #0001;
+}
+
+.item .emoji{
+  font-size:55px;
+  margin-bottom:10px;
+}
+
+.item h3{
+  margin-bottom:8px;
+}
+
+.item button{
+  margin-top:12px;
+}
+
+.location{
+  min-height:420px;
+  border-radius:25px;
+  padding:25px;
+  background:linear-gradient(135deg,#ccefcf,#bde7f5);
+  position:relative;
+  overflow:hidden;
+}
+
+.house{
+  background:#fff4df;
+  width:230px;
+  height:170px;
+  position:absolute;
+  left:12%;
+  bottom:50px;
+  border-radius:15px;
+  border:5px solid #e7a36d;
+}
+
+.roof{
+  width:0;
+  height:0;
+  border-left:140px solid transparent;
+  border-right:140px solid transparent;
+  border-bottom:110px solid #df8cae;
+  position:absolute;
+  top:-105px;
+  left:-25px;
+}
+
+.door{
+  width:45px;
+  height:75px;
+  background:#9a6b54;
+  position:absolute;
+  bottom:0;
+  left:90px;
+}
+
+.window{
+  width:45px;
+  height:45px;
+  background:#9edcf1;
+  position:absolute;
+  bottom:75px;
+  left:25px;
+  border:4px solid white;
+}
+
+.tree{
+  position:absolute;
+  right:12%;
+  bottom:50px;
+  font-size:110px;
+}
+
+.flower{
+  position:absolute;
+  font-size:35px;
+}
+
+.flower.one{left:45%;bottom:30px}
+.flower.two{left:55%;bottom:80px}
+.flower.three{right:35%;bottom:25px}
+
+.pet{
+  font-size:100px;
+  text-align:center;
+  margin:20px;
+}
+
+.message{
+  text-align:center;
+  padding:15px;
+  min-height:25px;
+  color:#b13e79;
+  font-weight:bold;
+}
+
+input,select{
+  padding:12px;
+  border-radius:15px;
+  border:2px solid #f0c5da;
+  margin:5px;
+}
+
+footer{
+  text-align:center;
+  padding:30px;
+  color:#8a7281;
+}
+
+@media(max-width:600px){
+  .hero h1{
+    font-size:32px;
+  }
+
+  .location{
+    min-height:500px;
+  }
+
+  .house{
+    left:5%;
+  }
+
+  .tree{
+    right:2%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🌸 GirlVerse</div>
+  <div class="coins">💎 <span id="coins">100</span></div>
+</header>
+
+<nav>
+  <button onclick="showScreen('inicio')">🏡 Inicio</button>
+  <button onclick="showScreen('personaje')">👩 Personaje</button>
+  <button onclick="showScreen('mundo')">🌳 Mundo</button>
+  <button onclick="showScreen('casa')">🏠 Casa</button>
+  <button onclick="showScreen('tienda')">👗 Tienda</button>
+  <button onclick="showScreen('mascotas')">🐶 Mascotas</button>
+  <button onclick="showScreen('jardin')">🌷 Jardín</button>
+</nav>
+
+<div class="container">
+
+<section id="inicio" class="screen active">
+  <div class="hero">
+    <h1>🌸 Bienvenida a GirlVerse</h1>
+    <p>Tu mundo. Tu estilo. Tu historia.</p>
+  </div>
+
+  <div class="card">
+    <h2>✨ Tu aventura comienza aquí</h2>
+    <br>
+    <p>
+      Explora un mundo tranquilo, crea tu personaje,
+      decora tu casa, cuida mascotas y disfruta de tu propio espacio.
+    </p>
+    <br>
+    <button class="action" onclick="showScreen('personaje')">
+      Crear mi personaje 👩
+    </button>
+  </div>
+
+  <div class="message" id="message"></div>
+</section>
+
+<section id="personaje" class="screen">
+  <div class="card">
+    <h2>👩 Crear personaje</h2>
+
+    <div class="avatar">
+      <div class="hair" id="hair"></div>
+      <div class="head"></div>
+      <div class="face">• •</div>
+      <div class="body" id="body"></div>
+    </div>
+
+    <div style="text-align:center">
+      <input id="playerName" placeholder="Tu nombre">
+
+      <select id="hairColor">
+        <option value="#6b402e">Cabello castaño</option>
+        <option value="#1e1e1e">Cabello negro</option>
+        <option value="#d9a441">Cabello rubio</option>
+        <option value="#8d5ca8">Cabello morado</option>
+        <option value="#d85b8a">Cabello rosa</option>
+      </select>
+
+      <select id="dressColor">
+        <option value="#f3a8c7">Vestido rosa</option>
+        <option value="#a9c8f3">Vestido azul</option>
+        <option value="#c8a9f3">Vestido lila</option>
+        <option value="#f3d0a9">Vestido crema</option>
+      </select>
+
+      <br><br>
+
+      <button class="action" onclick="saveCharacter()">
+        💾 Guardar personaje
+      </button>
+    </div>
+  </div>
+</section>
+
+<section id="mundo" class="screen">
+  <div class="card">
+    <h2>🌳 Tu mundo</h2>
+    <p>Explora los lugares de GirlVerse.</p>
+
+    <div class="location">
+      <div class="house">
+        <div class="roof"></div>
+        <div class="window"></div>
+        <div class="door"></div>
+      </div>
+
+      <div class="tree">🌳</div>
+      <div class="flower one">🌸</div>
+      <div class="flower two">🌷</div>
+      <div class="flower three">🌻</div>
+    </div>
+
+    <br>
+
+    <div class="grid">
+      <div class="item">
+        <div class="emoji">☕</div>
+        <h3>Cafetería</h3>
+        <button class="action" onclick="earnCoins(10,'Compraste una bebida ☕')">
+          Visitar
+        </button>
+      </div>
+
+      <div class="item">
+        <div class="emoji">🌳</div>
+        <h3>Parque</h3>
+        <button class="action" onclick="earnCoins(15,'Disfrutaste del parque 🌳')">
+          Visitar
+        </button>
+      </div>
+
+      <div class="item">
+        <div class="emoji">🛍️</div>
+        <h3>Centro comercial</h3>
+        <button class="action" onclick="showScreen('tienda')">
+          Entrar
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="casa" class="screen">
+  <div class="card">
+    <h2>🏠 Mi casa</h2>
+    <p>Decora tu espacio como quieras.</p>
+
+    <div class="grid">
+      <div class="item">
+        <div class="emoji">🛋️</div>
+        <h3>Sofá</h3>
+        <button class="action" onclick="buy(20,'Sofá comprado 🛋️')">
+          Comprar 20 💎
+        </button>
+      </div>
+
+      <div class="item">
+        <div class="emoji">🛏️</div>
+        <h3>Cama</h3>
+        <button class="action" onclick="buy(30,'Cama comprada 🛏️')">
+          Comprar 30 💎
+        </button>
+      </div>
+
+      <div class="item">
+        <div class="emoji">🪴</div>
+        <h3>Planta</h3>
+        <button class="action" onclick="buy(15,'Planta comprada 🪴')">
+          Comprar 15 💎
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tienda" class="screen">
+  <div class="card">
+    <h2>👗 Tienda de GirlVerse</h2>
+
+    <div class="grid">
+
+      <div class="item">
+        <div class="emoji">👗</div>
+        <h3>Vestido elegante</h3>
+        <p>40 💎</p>
+        <button class="action" onclick="buy(40,'Vestido comprado 👗')">
+          Comprar
+        </button>
+      </div>
+
+      <div class="item">
+        <div class="emoji">👟</div>
+        <h3>Zapatillas</h3>
+        <p>25 💎</p>
+        <button class="action" onclick="buy(25,'Zapatillas compradas 👟')">
+          Comprar
+        </button>
+      </div>
+
+      <div class="item">
+        <div class="emoji">🎀</div>
+        <h3>Accesorio</h3>
+        <p>15 💎</p>
+        <button class="action" onclick="buy(15,'Accesorio comprado 🎀')">
+          Comprar
+        </button>
+      </div>
+
+      <div class="item">
+        <div class="emoji">👜</div>
+        <h3>Bolso</h3>
+        <p>35 💎</p>
+        <button class="action" onclick="buy(35,'Bolso comprado 👜')">
+          Comprar
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="mascotas" class="screen">
+  <div class="card">
+    <h2>🐾 Mis mascotas</h2>
+
+    <div class="pet" id="pet">🐶</div>
+
+    <div style="text-align:center">
+      <button class="action" onclick="changePet('🐶')">🐶 Perro</button>
+      <button class="action" onclick="changePet('🐱')">🐱 Gato</button>
+      <button class="action" onclick="changePet('🐰')">🐰 Conejo</button>
+      <button class="action" onclick="changePet('🐹')">🐹 Hámster</button>
+    </div>
+
+    <br>
+
+    <div style="text-align:center">
+      <button class="action" onclick="earnCoins(10,'Tu mascota está feliz ❤️')">
+        ❤️ Cuidar mascota
+      </button>
+    </div>
+  </div>
+</section>
+
+<section id="jardin" class="screen">
+  <div class="card">
+    <h2>🌷 Mi jardín</h2>
+    <p>Cuida tus flores y consigue recompensas.</p>
+
+    <div style="font-size:100px;text-align:center;padding:40px">
+      🌱 🌷 🌸 🌻 🌹
+    </div>
+
+    <div style="text-align:center">
+      <button class="action" onclick="earnCoins(20,'¡Tu jardín floreció! 🌸')">
+        💧 Regar jardín
+      </button>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  🌸 GirlVerse — Tu mundo. Tu estilo. Tu historia. 🌸
+</footer>
+
+<script>
+let coins = Number(localStorage.getItem("girlverseCoins")) || 100;
+
+function updateCoins(){
+  document.getElementById("coins").textContent = coins;
+  localStorage.setItem("girlverseCoins",coins);
+}
+
+function showScreen(id){
+  document.querySelectorAll(".screen").forEach(screen=>{
+    screen.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+function message(text){
+  const box=document.getElementById("message");
+  box.textContent=text;
+
+  setTimeout(()=>{
+    box.textContent="";
+  },3000);
+}
+
+function earnCoins(amount,text){
+  coins += amount;
+  updateCoins();
+  message(text + " +" + amount + " 💎");
+}
+
+function buy(price,text){
+  if(coins >= price){
+    coins -= price;
+    updateCoins();
+    message(text);
+  }else{
+    message("No tienes suficientes monedas 💎");
+  }
+}
+
+function changePet(pet){
+  document.getElementById("pet").textContent=pet;
+  localStorage.setItem("girlversePet",pet);
+  message("¡Tu nueva mascota está contigo! ❤️");
+}
+
+function saveCharacter(){
+
+  const name=document.getElementById("playerName").value || "Jugadora";
+  const hair=document.getElementById("hairColor").value;
+  const dress=document.getElementById("dressColor").value;
+
+  document.getElementById("hair").style.background=hair;
+  document.getElementById("body").style.background=dress;
+
+  localStorage.setItem("girlverseName",name);
+  localStorage.setItem("girlverseHair",hair);
+  localStorage.setItem("girlverseDress",dress);
+
+  message("¡Personaje guardado, "+name+"! 🌸");
+}
+
+function loadGame(){
+
+  const name=localStorage.getItem("girlverseName");
+  const hair=localStorage.getItem("girlverseHair");
+  const dress=localStorage.getItem("girlverseDress");
+  const pet=localStorage.getItem("girlversePet");
+
+  if(name){
+    document.getElementById("playerName").value=name;
+  }
+
+  if(hair){
+    document.getElementById("hair").style.background=hair;
+  }
+
+  if(dress){
+    document.getElementById("body").style.background=dress;
+  }
+
+  if(pet){
+    document.getElementById("pet").textContent=pet;
+  }
+
+  updateCoins();
+}
+
+loadGame();
+</script>
+
+</body>
+</html>
